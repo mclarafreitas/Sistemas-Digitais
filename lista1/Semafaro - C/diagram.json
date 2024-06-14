@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "author": "Maria Clara Freitas",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-mega", "id": "mega", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -90, "left": 80.6, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -99.6,
+      "left": 320.6,
+      "attrs": { "color": "limegreen" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -90,
+      "left": 195.8,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -34.45,
+      "left": 307.2,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -34.45,
+      "left": 182.4,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": -34.45,
+      "left": 76.8,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "mega:12", "r3:1", "green", [ "v0" ] ],
+    [ "r3:2", "led1:A", "green", [ "v0" ] ],
+    [ "mega:GND.1", "led1:C", "black", [ "v0" ] ],
+    [ "mega:11", "r2:1", "green", [ "v0" ] ],
+    [ "r2:2", "led3:A", "green", [ "v0" ] ],
+    [ "mega:GND.3", "led3:C", "black", [ "v0" ] ],
+    [ "mega:10", "r1:1", "green", [ "v0" ] ],
+    [ "r1:2", "led2:A", "green", [ "v0" ] ],
+    [ "mega:GND.2", "led2:C", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

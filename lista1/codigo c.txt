@@ -1,0 +1,27 @@
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main() {
+    // Define os pinos dos LEDs como saída
+
+    DDRB |= (1 << PB6) | (1 << PB5) | (1 << PB4);
+
+    while (1) {
+        // Sinal fechado (vermelho) por 5 segundos
+        PORTB |= (1 << PB6);  // Acende o LED vermelho
+        _delay_ms(5000);      // Espera 5 segundos
+        PORTB &= ~(1 << PB6); // Apaga o LED vermelho
+
+        // Sinal de atenção (amarelo) por 2 segundos
+        PORTB |= (1 << PB5);  // Acende o LED amarelo
+        _delay_ms(2000);      // Espera 2 segundos
+        PORTB &= ~(1 << PB5); // Apaga o LED amarelo
+
+        // Sinal aberto (verde) por 5 segundos
+        PORTB |= (1 << PB4);  // Acende o LED verde
+        _delay_ms(5000);      // Espera 5 segundos
+        PORTB &= ~(1 << PB4); // Apaga o LED verde
+    }
+
+    return 0;
+}
