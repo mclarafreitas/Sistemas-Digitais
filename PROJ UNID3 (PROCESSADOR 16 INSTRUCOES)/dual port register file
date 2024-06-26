@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity dual_port_register_file is
+    Port (
+        clk           : in  STD_LOGIC;
+        address_proc  : in  STD_LOGIC_VECTOR(7 downto 0);
+        address_user  : in  STD_LOGIC_VECTOR(7 downto 0);
+        data_in       : in  STD_LOGIC_VECTOR(7 downto 0);
+        we            : in  STD_LOGIC;  -- Write Enable signal
+        data_out_proc : out STD_LOGIC_VECTOR(7 downto 0);
+        data_out_user : out STD_LOGIC_VECTOR(7 downto 0)
+    );
+end dual_port_register_file;
+
+architecture Behavioral of dual_port_register_file is
+    type register_array is array (0 to 255) of STD_LOGIC_VECTOR(7 downto 0);
+    signal mem1, mem2 : register_array := (others => (others => '0'));
+    signal Q1, Q2     : STD_LOGIC_VECTOR(7 downto 0);
+begin
+    process(clk)
+    begin
+        if clk = '0' then
+            if we = '1' then
+                mem1(to_integer(unsigned(address_proc))) <= data_in;
+            end if;
+            Q1 <= mem1(to_integer(unsigned(address_proc)));
+        elsif clk = '1' then
+            mem2(to_integer(unsigned(address_proc))) <= Q1;
+            Q2 <= mem2(to_integer(unsigned(address_proc)));
+        end if;
+    end process;
+
+    data_out_proc <= mem2(to_integer(unsigned(address_proc)));
+    data_out_user <= mem2(to_integer(unsigned(address_user)));
+end Behavioral;
